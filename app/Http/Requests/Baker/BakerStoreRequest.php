@@ -25,7 +25,7 @@ class BakerStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:1|max:255',
-            'lastName' => 'required|string|min:1|max:255',
+            'last_name' => 'required|string|min:1|max:255',
         ];
     }
 
