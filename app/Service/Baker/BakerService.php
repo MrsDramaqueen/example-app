@@ -15,7 +15,7 @@ class BakerService
     public function index(): JsonResponse
     {
         try {
-            $baker = Baker::all();
+            $baker = Baker::query()->paginate(10);
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

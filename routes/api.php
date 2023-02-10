@@ -20,10 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::post('/baker', [BakerController::class, 'store']);
-//Route::get('/index', [BakerController::class, 'index']);
-//Route::get('/baker/{id}', [BakerController::class, 'show']);
-
 Route::group(['prefix' => 'baker'], function () {
     Route::get('/', [BakerController::class, 'index']);
     Route::get('/{id}', [BakerController::class, 'show']);

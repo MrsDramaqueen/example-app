@@ -14,7 +14,7 @@ class Baker extends Model
      */
     public $timestamps = false;
 
-    protected $fillable = ['name', 'last name',];
+    protected $fillable = ['name', 'last_name',];
 
     protected $hidden = [
         'created_at', 'updated_at',
