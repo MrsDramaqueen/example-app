@@ -4,7 +4,7 @@ namespace App\Http\Requests\Baker;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BakerStoreRequest extends FormRequest
+class BakerIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,19 +21,10 @@ class BakerStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => 'required|string|min:1|max:255',
-            'last_name' => 'required|string|min:1|max:255',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name' => 'A name is required',
-            'last_name' => 'A last name is required',
+            //
         ];
     }
 }
