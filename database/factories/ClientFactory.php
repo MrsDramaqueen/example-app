@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Baker;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BakerFactory extends Factory
+class ClientFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Baker::class;
+    protected $model = Client::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class BakerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->name,
             'last_name' => $this->faker->lastName,
             'age' => $this->faker->numberBetween(18,85),
         ];

@@ -2,13 +2,11 @@
 
 namespace App\Service\Baker;
 
-use App\Http\Requests\Baker\BakerIndexRequest;
-use App\Http\Requests\Baker\BakerShowRequest;
-use App\Http\Requests\Baker\BakerStoreRequest;
-use App\Http\Requests\Baker\BakerUpdateRequest;
+use App\Entity\DTO\Baker\BakerIndexDTO;
+use App\Entity\DTO\Baker\BakerStoreDTO;
+use App\Entity\DTO\Baker\BakerUpdateDTO;
 use App\Models\Baker;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -16,7 +14,6 @@ class BakerService
 {
 
     /**
-     * @param BakerIndexRequest $request
      * @return JsonResponse
      */
     public function index(): JsonResponse
@@ -31,12 +28,16 @@ class BakerService
     }
 
     /**
-     * @param BakerIndexRequest $request
+     * @param BakerIndexDTO $dto
      * @return JsonResponse
      */
-    public function getByParameters(BakerIndexRequest $request): JsonResponse
+    public function getByParameters(BakerIndexDTO $dto): JsonResponse
     {
-        $parameters = $request->all();
+        $parameters = [
+            'name' => $dto->getName(),
+            'last_name' => $dto->getLastName(),
+            'age' => $dto->getAge(),
+        ];
         $query = Baker::query();
         foreach ($parameters as $field => $value) {
             $query->where($field, '=', $value, 'and');
@@ -51,13 +52,18 @@ class BakerService
     }
 
     /**
-     * @param BakerStoreRequest $request
+     * @param BakerStoreDTO $dto
      * @return JsonResponse
      */
-    public function store(BakerStoreRequest $request): JsonResponse
+    public function store(BakerStoreDTO $dto): JsonResponse
     {
         try {
-            $baker = Baker::query()->create($request->all());
+            $baker = Baker::query()->create([
+                'name' => $dto->getName(),
+                'last_name' => $dto->getLastName(),
+                'age' => $dto->getAge(),
+                ]
+            );
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
@@ -81,18 +87,21 @@ class BakerService
     }
 
     /**
-     * @param BakerUpdateRequest $request
+     * @param BakerUpdateDTO $dto
      * @param $id
      * @return JsonResponse
      */
-    public function update(BakerUpdateRequest $request, $id): JsonResponse
+    public function update(BakerUpdateDTO $dto, $id): JsonResponse
     {
         try {
-            $baker = Baker::query()->findOrFail($id)->update($request->all());
+            $baker = Baker::query()->findOrFail($id)->update([
+                'name' => $dto->getName(),
+                'last_name' => $dto->getLastName(),
+                'age' => $dto->getAge(),
+            ]);
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-
         return $this->responseSuccess($baker);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Baker;
 
+use App\Entity\DTO\Baker\BakerStoreDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BakerStoreRequest extends FormRequest
@@ -26,6 +27,7 @@ class BakerStoreRequest extends FormRequest
         return [
             'name' => 'required|string|min:1|max:255',
             'last_name' => 'required|string|min:1|max:255',
+            'age' => 'required|integer|between:18, 85',
         ];
     }
 
@@ -34,6 +36,18 @@ class BakerStoreRequest extends FormRequest
         return [
             'name' => 'A name is required',
             'last_name' => 'A last name is required',
+            'age' => 'An age is required',
         ];
+    }
+
+    /**
+     * @return BakerStoreDTO
+     */
+    public function getStoreDTO(): BakerStoreDTO
+    {
+      return (new BakerStoreDTO)
+            ->setAge($this->input('age'))
+            ->setLastName($this->input('last_name'))
+            ->setName($this->input('name'));
     }
 }

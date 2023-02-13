@@ -6,18 +6,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int $id
  * @property string $name
  * @property string $last_name
  * @property int $age
  */
 
-class Baker extends Model
+class Client extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'last_name', 'age'];
 
     protected $hidden = ['created_at', 'updated_at'];
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
@@ -29,12 +46,10 @@ class Baker extends Model
 
     /**
      * @param string $name
-     * @return Baker
      */
-    public function setName(string $name): Baker
+    public function setName(string $name): void
     {
         $this->name = $name;
-        return $this;
     }
 
     /**
@@ -47,34 +62,26 @@ class Baker extends Model
 
     /**
      * @param string $last_name
-     * @return Baker
      */
-    public function setLastName(string $last_name): Baker
+    public function setLastName(string $last_name): void
     {
         $this->last_name = $last_name;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getAge(): string
+    public function getAge(): int
     {
         return $this->age;
     }
 
     /**
-     * @param string $age
-     * @return Baker
+     * @param int $age
      */
-    public function setAge(string $age): Baker
+    public function setAge(int $age): void
     {
         $this->age = $age;
-        return $this;
     }
-
-    private string $name;
-    private string $last_name;
-    private string $age;
 
 }

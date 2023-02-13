@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Baker;
+namespace App\Http\Requests\Bun;
 
-use App\Entity\DTO\Baker\BakerIndexDTO;
-use App\Entity\DTO\Baker\BakerStoreDTO;
+use App\Entity\DTO\Bun\BunIndexDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BakerIndexRequest extends FormRequest
+class BunIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,14 +29,10 @@ class BakerIndexRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return BakerIndexDTO
-     */
-    public function getIndexDTO(): BakerIndexDTO
+    public function getIndexDTO(): BunIndexDTO
     {
-        return (new BakerIndexDTO())
-            ->setAge($this->input('age'))
-            ->setLastName($this->input('last_name'))
-            ->setName($this->input('name'));
+        return (new BunIndexDTO)
+            ->setName($this->input('name'))
+            ->setType($this->input('type'));
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBakersTable extends Migration
+class CreateBunsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateBakersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bakers', function (Blueprint $table) {
+        Schema::create('buns', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
             $table->string('name');
-            $table->string('last_name');
-            $table->integer('age');
+            $table->unique(['type', 'name']);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateBakersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bakers');
+        Schema::dropIfExists('buns');
     }
 }

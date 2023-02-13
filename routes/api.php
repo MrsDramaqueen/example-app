@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\BakerController;
+use App\Http\Controllers\Baker\BakerController;
+use App\Http\Controllers\Bun\BunController;
+use App\Http\Controllers\Client\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,15 @@ Route::group(['prefix' => 'baker'], function () {
     Route::delete('/{id}', [BakerController::class, 'destroy']);
     Route::post('/', [BakerController::class, 'store']);
     Route::put('/{id}', [BakerController::class, 'update']);
+});
+
+Route::group(['prefix' => 'client'], function () {
+    Route::get('/', [ClientController::class, 'index']);
+    Route::put('/{id}', [ClientController::class, 'update']);
+});
+
+Route::group(['prefix' => 'bun'], function () {
+   Route::get('/', [BunController::class, 'index']);
 });
 
 
