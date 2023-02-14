@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $name
@@ -76,5 +78,15 @@ class Baker extends Model
     private string $name;
     private string $last_name;
     private string $age;
+
+    public function buns(): HasMany
+    {
+        return $this->hasMany(BakerBun::class);
+    }
+
+    public function clients(): BelongsToMany
+    {
+        return $this->belongsToMany(Client::class);
+    }
 
 }

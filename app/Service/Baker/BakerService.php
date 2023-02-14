@@ -9,7 +9,6 @@ use App\Models\Baker;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class BakerService
 {
 

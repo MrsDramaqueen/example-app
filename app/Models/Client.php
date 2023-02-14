@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -82,6 +84,16 @@ class Client extends Model
     public function setAge(int $age): void
     {
         $this->age = $age;
+    }
+
+    public function buns(): HasMany
+    {
+        return $this->hasMany(BakerBun::class);
+    }
+
+    public function bakers(): BelongsToMany
+    {
+        return $this->belongsToMany(Baker::class);
     }
 
 }

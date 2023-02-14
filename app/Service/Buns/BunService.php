@@ -3,7 +3,6 @@
 namespace App\Service\Buns;
 use App\Entity\DTO\Bun\BunIndexDTO;
 use App\Models\Bun;
-use App\Models\Client;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +23,7 @@ class BunService
     {
         $parameters = [
             'name' => $dto->getName(),
-            'last_name' => $dto->getType(),
+            'type' => $dto->getType(),
         ];
         $query = Bun::query();
         foreach ($parameters as $field => $value) {
@@ -36,6 +35,20 @@ class BunService
             return $this->responseError($e);
         }
 
+        return $this->responseSuccess($bun);
+    }
+
+    public function store(BunIndexDTO $dto): JsonResponse
+    {
+        try {
+            $bun = Bun::query()->create([
+                    'name' => $dto->getName(),
+                    'type' => $dto->getType(),
+                ]
+            );
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
         return $this->responseSuccess($bun);
     }
 
@@ -62,8 +75,4 @@ class BunService
             'message' => $e->getMessage(),
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-
-
-
-
 }

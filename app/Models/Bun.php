@@ -15,7 +15,7 @@ class Bun extends Model
 
     protected $fillable = ['type', 'name'];
 
-    protected $hidden = ['created_at', 'updated_ad'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     private string $type;
     private string $name;

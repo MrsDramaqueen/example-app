@@ -61,5 +61,4 @@ class BakerIndexDTO
     private string $lastName;
     private string $age;
 
-
 }

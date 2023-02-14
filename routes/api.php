@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Baker\BakerController;
+use App\Http\Controllers\BakerBun\BakerBunController;
 use App\Http\Controllers\Bun\BunController;
 use App\Http\Controllers\Client\ClientController;
 use Illuminate\Http\Request;
@@ -37,7 +38,16 @@ Route::group(['prefix' => 'client'], function () {
 
 Route::group(['prefix' => 'bun'], function () {
    Route::get('/', [BunController::class, 'index']);
+    Route::post('/', [BunController::class, 'store']);
 });
+
+Route::group(['prefix' => 'bakerBun'], function () {
+    Route::get('/', [BakerBunController::class, 'showBakerName']);
+    Route::get('/', [BakerBunController::class, 'listALLBakerBuns']);
+    Route::post('/', [BakerBunController::class, 'store']);
+    Route::delete('/{id}', [BakerBunController::class, 'destroy']);
+});
+
 
 
 
