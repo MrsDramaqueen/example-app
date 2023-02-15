@@ -120,4 +120,12 @@ class ClientService
 
         return $this->responseSuccess($result);
     }
+
+    public function logoutClient(): array
+    {
+        auth('sanctum')->user()->tokens()->delete();
+        return [
+            'message' => 'User logged out'
+        ];
+    }
 }

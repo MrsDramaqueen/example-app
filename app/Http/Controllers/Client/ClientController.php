@@ -36,4 +36,9 @@ class ClientController extends Controller
     {
         return $service->loginClient($request->getLoginDTO());
     }
+
+    public function logoutClient(ClientService $service): array
+    {
+        return $service->logoutClient();
+    }
 }
