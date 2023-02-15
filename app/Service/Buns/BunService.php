@@ -3,11 +3,14 @@
 namespace App\Service\Buns;
 use App\Entity\DTO\Bun\BunIndexDTO;
 use App\Models\Bun;
+use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class BunService
 {
+    use Responses;
+
     public function index(): JsonResponse
     {
         try {
@@ -50,29 +53,5 @@ class BunService
             return $this->responseError($e);
         }
         return $this->responseSuccess($bun);
-    }
-
-    /**
-     * @param $bun
-     * @return JsonResponse
-     */
-    public function responseSuccess($bun): JsonResponse
-    {
-        return \response()->json([
-            'data' => $bun,
-            'message' => 'Success',
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * @param \Exception $e
-     * @return JsonResponse
-     */
-    public function responseError(\Exception $e): JsonResponse
-    {
-        return \response()->json([
-            'data' => [],
-            'message' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

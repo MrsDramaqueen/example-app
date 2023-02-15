@@ -6,11 +6,18 @@ use App\Entity\DTO\BakerBun\BakerBunCreateOrderDTO;
 use App\Http\Requests\BakerBun\BakerBunRequest;
 use App\Models\Baker;
 use App\Models\BakerBun;
+use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class BakerBunService
 {
+    use Responses;
+
+    /**
+     * @param BakerBunCreateOrderDTO $dto
+     * @return JsonResponse
+     */
     public function store(BakerBunCreateOrderDTO $dto): JsonResponse
     {
         try {
@@ -26,6 +33,24 @@ class BakerBunService
         return $this->responseSuccess($order);
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        try {
+            $order = BakerBun::query()->findOrFail($id);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+
+        return $this->responseSuccess($order);
+    }
+
+    /**
+     * @return JsonResponse
+     */
     public function showAllListBakerBuns(): JsonResponse
     {
         try {
@@ -37,6 +62,10 @@ class BakerBunService
         return $this->responseSuccess($list);
     }
 
+    /**
+     * @param BakerBunCreateOrderDTO $dto
+     * @return JsonResponse
+     */
     public function showListBakerBunsByParameter(BakerBunCreateOrderDTO $dto): JsonResponse
     {
         $parameters = [
@@ -57,6 +86,10 @@ class BakerBunService
         return $this->responseSuccess($list);
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function destroy($id): JsonResponse
     {
         try {
@@ -67,29 +100,4 @@ class BakerBunService
 
         return $this->responseSuccess($order);
     }
-
-    /**
-     * @param $order
-     * @return JsonResponse
-     */
-    public function responseSuccess($order): JsonResponse
-    {
-        return \response()->json([
-            'data' => $order,
-            'message' => 'Success',
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * @param \Exception $e
-     * @return JsonResponse
-     */
-    public function responseError(\Exception $e): JsonResponse
-    {
-        return \response()->json([
-            'data' => [],
-            'message' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
 }

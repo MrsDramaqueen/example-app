@@ -6,19 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $last_name
  * @property int $age
+ * @property string $email
+ * @property string $password
  */
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
-    protected $fillable = ['name', 'last_name', 'age'];
+    protected $fillable = [
+        'name',
+        'last_name',
+        'age',
+        'email',
+        'password',
+        ];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -86,6 +95,42 @@ class Client extends Model
         $this->age = $age;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Client
+     */
+    public function setEmail(string $email): Client
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return Client
+     */
+    public function setPassword(string $password): Client
+    {
+        $this->password = $password;
+        return $this;
+    }
+
     public function buns(): HasMany
     {
         return $this->hasMany(BakerBun::class);
@@ -95,5 +140,4 @@ class Client extends Model
     {
         return $this->belongsToMany(Baker::class);
     }
-
 }

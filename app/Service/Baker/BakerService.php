@@ -6,11 +6,13 @@ use App\Entity\DTO\Baker\BakerIndexDTO;
 use App\Entity\DTO\Baker\BakerStoreDTO;
 use App\Entity\DTO\Baker\BakerUpdateDTO;
 use App\Models\Baker;
+use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class BakerService
 {
+    use Responses;
 
     /**
      * @return JsonResponse
@@ -66,7 +68,6 @@ class BakerService
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-
         return $this->responseSuccess($baker);
     }
 
@@ -117,30 +118,6 @@ class BakerService
         }
 
         return $this->responseSuccess($baker);
-    }
-
-    /**
-     * @param $baker
-     * @return JsonResponse
-     */
-    public function responseSuccess($baker): JsonResponse
-    {
-        return \response()->json([
-            'data' => $baker,
-            'message' => 'Success',
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * @param \Exception $e
-     * @return JsonResponse
-     */
-    public function responseError(\Exception $e): JsonResponse
-    {
-        return \response()->json([
-            'data' => [],
-            'message' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
 }

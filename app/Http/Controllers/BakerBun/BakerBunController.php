@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BakerBun;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BakerBun\BakerBunRequest;
+use App\Http\Requests\BakerBun\BakerBunUpdateRequest;
 use App\Models\Baker;
 use App\Models\BakerBun;
 use App\Models\Bun;
@@ -12,9 +13,9 @@ use Illuminate\Http\JsonResponse;
 
 class BakerBunController extends Controller
 {
-   public function showBakerName(BakerBunService $service)
+   public function show(BakerBunService $service, $id): JsonResponse
    {
-       return $service->showBakerName();
+       return $service->show($id);
    }
 
    public function store(BakerBunService $service, BakerBunRequest $request): JsonResponse
@@ -22,7 +23,7 @@ class BakerBunController extends Controller
        return $service->store($request->getCreateDTO());
    }
 
-   public function listALLBakerBuns(BakerBunService $service, BakerBunRequest $request): JsonResponse
+   public function listALLBakerBuns(BakerBunService $service, BakerBunUpdateRequest $request): JsonResponse
    {
        if (empty($request->all())) {
            $result = $service->showAllListBakerBuns();

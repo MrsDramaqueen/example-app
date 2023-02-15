@@ -61,5 +61,4 @@ class ClientUpdateDTO
     private string $name;
     private string $lastName;
     private string $age;
-
 }

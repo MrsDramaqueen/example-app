@@ -12,9 +12,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $type
  * @property string $name
  * @property-read Baker $baker
+ * @property-read Client $client
  */
 class BakerBun extends Model
 {
+
     use HasFactory;
 
     private int $clientId;
@@ -106,11 +108,25 @@ class BakerBun extends Model
         return $this->baker;
     }
 
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function baker(): BelongsTo
     {
         return $this->belongsTo(Baker::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);

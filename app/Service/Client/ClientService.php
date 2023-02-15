@@ -3,15 +3,20 @@
 namespace App\Service\Client;
 
 use App\Entity\DTO\Client\ClientIndexDTO;
+use App\Entity\DTO\Client\ClientLoginDTO;
+use App\Entity\DTO\Client\ClientStoreDTO;
 use App\Entity\DTO\Client\ClientUpdateDTO;
 use App\Http\Requests\Client\ClientIndexRequest;
 use App\Http\Requests\Client\ClientUpdateRequest;
 use App\Models\Client;
+use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientService
 {
+    use Responses;
 
     /**
      * @return JsonResponse
@@ -61,28 +66,58 @@ class ClientService
         return $this->responseSuccess($client);
     }
 
-    /**
-     * @param $client
-     * @return JsonResponse
-     */
-    public function responseSuccess($client): JsonResponse
+    public function signUpNewClient(ClientStoreDTO $dto): JsonResponse
     {
-        return \response()->json([
-            'data' => $client,
-            'message' => 'Success',
-        ], Response::HTTP_OK);
+        try {
+            $clientData = [
+                'name' => $dto->getName(),
+                'last_name' => $dto->getLastName(),
+                'age' =>$dto->getAge(),
+                'email' => $dto->getEmail(),
+                'password' => $dto->getPassword(),
+            ];
+            $client = Client::query()->create([
+                'name' => $clientData['name'],
+                'last_name' => $clientData['last_name'],
+                'age' => $clientData['age'],
+                'email' => $clientData['email'],
+                'password' => bcrypt($clientData['password']),
+            ]);
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
+        $token = $client->createToken('apiToken')->plainTextToken;
+        $result = [
+            'client' => $client,
+            'token' => $token,
+        ];
+
+        return $this->responseSuccess($result);
     }
 
-    /**
-     * @param \Exception $e
-     * @return JsonResponse
-     */
-    public function responseError(\Exception $e): JsonResponse
+    public function loginClient(ClientLoginDTO $dto): JsonResponse
     {
-        return \response()->json([
-            'data' => [],
-            'message' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
+        $clientData = [
+            'email' => $dto->getEmail(),
+            'password' => $dto->getPassword(),
+        ];
+        try {
+            $client = Client::query()->where('email', $clientData['email'])->first();
+            if (!$client || !Hash::check($clientData['password'], $client->getPassword())) {
+                return response()->json([
+                    'message' => 'Incorrect username or password',
+                ], Response::HTTP_FORBIDDEN);
+            }
+        } catch (\Exception $e) {
+            return $this->responseError($e);
+        }
 
+        $token = $client->createToken('apiToken')->plainTextToken;
+        $result = [
+            'user' => $client,
+            'token' => $token
+        ];
+
+        return $this->responseSuccess($result);
+    }
 }
