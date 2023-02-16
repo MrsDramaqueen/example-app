@@ -25,6 +25,7 @@ class BakerFactory extends Factory
             'name' => $this->faker->name(),
             'last_name' => $this->faker->lastName,
             'age' => $this->faker->numberBetween(18,85),
+            'email' => $this->faker->unique()->safeEmail,
         ];
     }
 }

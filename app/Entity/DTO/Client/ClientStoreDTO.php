@@ -94,9 +94,28 @@ class ClientStoreDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getPersonalToken(): string
+    {
+        return $this->personalToken;
+    }
+
+    /**
+     * @param string $personalToken
+     * @return ClientStoreDTO
+     */
+    public function setPersonalToken(string $personalToken): ClientStoreDTO
+    {
+        $this->personalToken = $personalToken;
+        return $this;
+    }
+
     private string $name;
     private string $lastName;
     private string $age;
     private string $email;
     private string $password;
+    private string $personalToken;
 }

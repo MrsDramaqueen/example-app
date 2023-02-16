@@ -7,6 +7,7 @@ use App\Http\Requests\Client\ClientIndexRequest;
 use App\Http\Requests\Client\ClientLoginRequest;
 use App\Http\Requests\Client\ClientRegisterRequest;
 use App\Http\Requests\Client\ClientUpdateRequest;
+use App\Models\User;
 use App\Service\Client\ClientService;
 use Illuminate\Http\JsonResponse;
 

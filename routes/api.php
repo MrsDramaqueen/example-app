@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Baker\BakerController;
 use App\Http\Controllers\BakerBun\BakerBunController;
 use App\Http\Controllers\Bun\BunController;
@@ -53,6 +52,7 @@ Route::group(['prefix' => 'bakerBun'], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //Route::resource('bakerBun', BakerBunController::class);
     Route::get('/bakerBun/', [BakerBunController::class, 'listALLBakerBuns']);
+    Route::post('/bakerBun', [BakerBunController::class, 'store']);
 });
 
 Route::group(['prefix' => 'auth'], function () {

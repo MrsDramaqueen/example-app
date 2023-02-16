@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * @property string $name
@@ -75,18 +76,28 @@ class Baker extends Model
         return $this;
     }
 
-    private string $name;
-    private string $last_name;
-    private string $age;
-
+    /**
+     * @return HasMany
+     */
     public function buns(): HasMany
     {
         return $this->hasMany(BakerBun::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(Client::class);
     }
 
+    public function user(): MorphOne
+    {
+        return $this->morphOne(User::class, 'userType');
+    }
+
+    private string $name;
+    private string $last_name;
+    private string $age;
 }

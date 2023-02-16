@@ -6,8 +6,6 @@ use App\Entity\DTO\Client\ClientIndexDTO;
 use App\Entity\DTO\Client\ClientLoginDTO;
 use App\Entity\DTO\Client\ClientStoreDTO;
 use App\Entity\DTO\Client\ClientUpdateDTO;
-use App\Http\Requests\Client\ClientIndexRequest;
-use App\Http\Requests\Client\ClientUpdateRequest;
 use App\Models\Client;
 use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +26,6 @@ class ClientService
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-
         return $this->responseSuccess($client);
     }
 
@@ -48,7 +45,6 @@ class ClientService
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-
         return $this->responseSuccess($client);
     }
 
@@ -69,19 +65,12 @@ class ClientService
     public function signUpNewClient(ClientStoreDTO $dto): JsonResponse
     {
         try {
-            $clientData = [
+            $client = Client::query()->create([
                 'name' => $dto->getName(),
                 'last_name' => $dto->getLastName(),
-                'age' =>$dto->getAge(),
+                'age' => $dto->getAge(),
                 'email' => $dto->getEmail(),
-                'password' => $dto->getPassword(),
-            ];
-            $client = Client::query()->create([
-                'name' => $clientData['name'],
-                'last_name' => $clientData['last_name'],
-                'age' => $clientData['age'],
-                'email' => $clientData['email'],
-                'password' => bcrypt($clientData['password']),
+                'password' => bcrypt($dto->getPassword()),
             ]);
         } catch (\Exception $e) {
             return $this->responseError($e);
@@ -91,19 +80,14 @@ class ClientService
             'client' => $client,
             'token' => $token,
         ];
-
         return $this->responseSuccess($result);
     }
 
     public function loginClient(ClientLoginDTO $dto): JsonResponse
     {
-        $clientData = [
-            'email' => $dto->getEmail(),
-            'password' => $dto->getPassword(),
-        ];
         try {
-            $client = Client::query()->where('email', $clientData['email'])->first();
-            if (!$client || !Hash::check($clientData['password'], $client->getPassword())) {
+            $client = Client::query()->where('email', $dto->getEmail())->first();
+            if (!$client || !Hash::check($dto->getPassword(), $client->getPassword())) {
                 return response()->json([
                     'message' => 'Incorrect username or password',
                 ], Response::HTTP_FORBIDDEN);
@@ -117,7 +101,6 @@ class ClientService
             'user' => $client,
             'token' => $token
         ];
-
         return $this->responseSuccess($result);
     }
 

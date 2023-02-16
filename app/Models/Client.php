@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -17,7 +20,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $password
  */
 
-class Client extends Model
+class Client extends Authenticatable
 {
     use HasApiTokens, HasFactory;
 
@@ -139,5 +142,10 @@ class Client extends Model
     public function bakers(): BelongsToMany
     {
         return $this->belongsToMany(Baker::class);
+    }
+
+    public function user(): MorphOne
+    {
+        return $this->morphOne(User::class, 'userType');
     }
 }

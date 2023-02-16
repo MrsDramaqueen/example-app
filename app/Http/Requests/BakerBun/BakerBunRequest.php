@@ -4,6 +4,7 @@ namespace App\Http\Requests\BakerBun;
 
 use App\Entity\DTO\BakerBun\BakerBunCreateOrderDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BakerBunRequest extends FormRequest
 {
