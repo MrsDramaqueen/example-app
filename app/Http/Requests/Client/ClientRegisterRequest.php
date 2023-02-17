@@ -29,7 +29,7 @@ class ClientRegisterRequest extends FormRequest
             'last_name' => 'required|string|min:1|max:255',
             'age' => 'required|integer|between:18, 85',
             'email' => 'required|string|min:1|max:255|unique:clients,email',
-            'password' => 'required|string|confirmed',
+            //'password' => 'required|string|confirmed',
         ];
     }
 
@@ -40,6 +40,7 @@ class ClientRegisterRequest extends FormRequest
             ->setLastName($this->input('last_name'))
             ->setAge($this->input('age'))
             ->setEmail($this->input('email'))
-            ->setPassword($this->input('password'));
+            //->setPassword($this->input('password'))
+        ;
     }
 }

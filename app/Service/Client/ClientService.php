@@ -29,6 +29,10 @@ class ClientService
         return $this->responseSuccess($client);
     }
 
+    /**
+     * @param ClientIndexDTO $dto
+     * @return JsonResponse
+     */
     public function getByParameters(ClientIndexDTO $dto): JsonResponse
     {
         $parameters = [
@@ -48,6 +52,11 @@ class ClientService
         return $this->responseSuccess($client);
     }
 
+    /**
+     * @param ClientUpdateDTO $dto
+     * @param $id
+     * @return JsonResponse
+     */
     public function update(ClientUpdateDTO $dto, $id): JsonResponse
     {
         try {
@@ -62,6 +71,10 @@ class ClientService
         return $this->responseSuccess($client);
     }
 
+    /**
+     * @param ClientStoreDTO $dto
+     * @return JsonResponse
+     */
     public function signUpNewClient(ClientStoreDTO $dto): JsonResponse
     {
         try {
@@ -70,7 +83,7 @@ class ClientService
                 'last_name' => $dto->getLastName(),
                 'age' => $dto->getAge(),
                 'email' => $dto->getEmail(),
-                'password' => bcrypt($dto->getPassword()),
+                //'password' => bcrypt($dto->getPassword()),
             ]);
         } catch (\Exception $e) {
             return $this->responseError($e);
@@ -83,6 +96,10 @@ class ClientService
         return $this->responseSuccess($result);
     }
 
+    /**
+     * @param ClientLoginDTO $dto
+     * @return JsonResponse
+     */
     public function loginClient(ClientLoginDTO $dto): JsonResponse
     {
         try {
@@ -104,6 +121,9 @@ class ClientService
         return $this->responseSuccess($result);
     }
 
+    /**
+     * @return string[]
+     */
     public function logoutClient(): array
     {
         auth('sanctum')->user()->tokens()->delete();

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Baker;
+use App\Models\Client;
+use App\Models\User;
 use App\Service\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 

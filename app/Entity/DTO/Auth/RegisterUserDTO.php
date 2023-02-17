@@ -58,7 +58,45 @@ class RegisterUserDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param string $userId
+     * @return RegisterUserDTO
+     */
+    public function setUserId(string $userId): RegisterUserDTO
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserType(): string
+    {
+        return $this->userType;
+    }
+
+    /**
+     * @param string $userType
+     * @return RegisterUserDTO
+     */
+    public function setUserType(string $userType): RegisterUserDTO
+    {
+        $this->userType = $userType;
+        return $this;
+    }
+
     private string $name;
     private string $email;
     private string $password;
+    private string $userId;
+    private string $userType;
 }

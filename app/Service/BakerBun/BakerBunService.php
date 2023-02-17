@@ -28,11 +28,6 @@ class BakerBunService
                 'client_id' => $dto->getClientId(),
                 'baker_id' => $dto->getBakerId(),
             ]);
-            if (Auth::id() != $order['client_id']) {
-                return response()->json([
-                    'You cant create order for this user',
-                ], Response::HTTP_FORBIDDEN);
-            }
         } catch (\Exception $e) {
             return $this->responseError($e);
         }

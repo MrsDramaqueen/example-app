@@ -17,7 +17,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $last_name
  * @property int $age
  * @property string $email
- * @property string $password
  */
 
 class Client extends Authenticatable
@@ -29,7 +28,6 @@ class Client extends Authenticatable
         'last_name',
         'age',
         'email',
-        'password',
         ];
 
     protected $hidden = ['created_at', 'updated_at'];
@@ -116,24 +114,6 @@ class Client extends Authenticatable
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return Client
-     */
-    public function setPassword(string $password): Client
-    {
-        $this->password = $password;
-        return $this;
-    }
-
     public function buns(): HasMany
     {
         return $this->hasMany(BakerBun::class);
@@ -144,8 +124,8 @@ class Client extends Authenticatable
         return $this->belongsToMany(Baker::class);
     }
 
-    public function user(): MorphOne
+    public function users(): MorphOne
     {
-        return $this->morphOne(User::class, 'userType');
+        return $this->morphOne(User::class, 'user');
     }
 }

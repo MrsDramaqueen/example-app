@@ -12,13 +12,19 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string $name
  * @property string $last_name
  * @property int $age
+ * @property string $email
  */
 
 class Baker extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'last_name', 'age'];
+    protected $fillable = [
+        'name',
+        'last_name',
+        'age',
+        'email',
+        ];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -92,12 +98,31 @@ class Baker extends Model
         return $this->belongsToMany(Client::class);
     }
 
-    public function user(): MorphOne
+    public function users(): MorphOne
     {
-        return $this->morphOne(User::class, 'userType');
+        return $this->morphOne(User::class, 'user');
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Baker
+     */
+    public function setEmail(string $email): Baker
+    {
+        $this->email = $email;
+        return $this;
     }
 
     private string $name;
     private string $last_name;
     private string $age;
+    private string $email;
 }

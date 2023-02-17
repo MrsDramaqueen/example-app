@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Baker\BakerIndexRequest;
 use App\Http\Requests\Baker\BakerStoreRequest;
 use App\Http\Requests\Baker\BakerUpdateRequest;
+use App\Models\Baker;
+use App\Models\Client;
 use App\Service\Baker\BakerService;
 use Illuminate\Http\JsonResponse;
 

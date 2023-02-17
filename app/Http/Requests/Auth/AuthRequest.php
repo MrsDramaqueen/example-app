@@ -30,6 +30,7 @@ class AuthRequest extends FormRequest
             'name' => 'required|string|min:1|max:255',
             'email' => 'required|string|min:1|max:255|unique:users,email',
             'password' => 'required|string|confirmed',
+            //'user_id' => 'exists:bakers,id|',
         ];
     }
 
@@ -38,6 +39,8 @@ class AuthRequest extends FormRequest
         return (new RegisterUserDTO)
             ->setName($this->input('name'))
             ->setEmail($this->input('email'))
-            ->setPassword($this->input('password'));
+            ->setPassword($this->input('password'))
+            ->setUserId($this->input('user_id'))
+            ->setUserType($this->input('user_type'));
     }
 }

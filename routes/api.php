@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Baker\BakerController;
 use App\Http\Controllers\BakerBun\BakerBunController;
 use App\Http\Controllers\Bun\BunController;
@@ -56,9 +57,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/register', [ClientController::class, 'signUpNewClient']);
-    Route::post('/login', [ClientController::class, 'loginClient']);
-    Route::post('/logout', [ClientController::class, 'logoutClient']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    //Route::post('/register', [ClientController::class, 'signUpNewClient']);
+    //Route::post('/login', [ClientController::class, 'loginClient']);
+    //Route::post('/logout', [ClientController::class, 'logoutClient']);
 });
 
 
