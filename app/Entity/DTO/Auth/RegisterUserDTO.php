@@ -2,7 +2,10 @@
 
 namespace App\Entity\DTO\Auth;
 
-class RegisterUserDTO
+use App\Entity\DTO\Baker\BakerStoreDTO;
+use App\Entity\DTO\Client\ClientStoreDTO;
+
+class RegisterUserDTO extends BakerStoreDTO
 {
     /**
      * @return string

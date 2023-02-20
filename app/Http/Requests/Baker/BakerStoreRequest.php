@@ -26,6 +26,7 @@ class BakerStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:1|max:255',
+            'email' => 'required|string|min:1|max:255|unique:bakers,email',
             'last_name' => 'required|string|min:1|max:255',
             'age' => 'required|integer|between:18, 85',
         ];
@@ -48,6 +49,7 @@ class BakerStoreRequest extends FormRequest
       return (new BakerStoreDTO)
             ->setAge($this->input('age'))
             ->setLastName($this->input('last_name'))
-            ->setName($this->input('name'));
+            ->setName($this->input('name'))
+            ->setEmail($this->input('email'));
     }
 }

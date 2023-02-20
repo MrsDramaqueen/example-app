@@ -5,7 +5,10 @@ namespace App\Service\Auth;
 use App\Entity\DTO\Auth\LoginUserDTO;
 use App\Entity\DTO\Auth\RegisterUserDTO;
 use App\Entity\DTO\Client\ClientStoreDTO;
+use App\Http\Controllers\Client\ClientController;
+use App\Models\Client;
 use App\Models\User;
+use App\Service\Baker\BakerService;
 use App\Service\Client\ClientService;
 use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
@@ -30,17 +33,20 @@ class AuthService
                 'user_id' => $dto->getUserId(),
                 'user_type' => $dto->getUserType(),
             ]);
+
+           switch ($user['user_type']) {
+               case 'clients':
+                   $userClass = (new ClientController)->signUpNewClient($dto);
+                   break;
+               case 'bakers':
+                   $userClass = (new BakerService)->store($dto);
+                   break;
+           }
+
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-
-        $token = $user->createToken('apiToken')->plainTextToken;
-        $result = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return $this->responseSuccess($result);
+        return $this->responseSuccess($userClass);
     }
 
     /**

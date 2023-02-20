@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property string $name
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Baker extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
     protected $fillable = [
         'name',

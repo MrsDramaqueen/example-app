@@ -29,7 +29,6 @@ class ClientRegisterRequest extends FormRequest
             'last_name' => 'required|string|min:1|max:255',
             'age' => 'required|integer|between:18, 85',
             'email' => 'required|string|min:1|max:255|unique:clients,email',
-            //'password' => 'required|string|confirmed',
         ];
     }
 
@@ -37,10 +36,8 @@ class ClientRegisterRequest extends FormRequest
     {
         return (new ClientStoreDTO)
             ->setName($this->input('name'))
-            ->setLastName($this->input('last_name'))
-            ->setAge($this->input('age'))
-            ->setEmail($this->input('email'))
-            //->setPassword($this->input('password'))
-        ;
+            //->setLastName('name')
+            //->setAge(23)
+            ->setEmail($this->input('email'));
     }
 }

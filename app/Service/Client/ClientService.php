@@ -80,10 +80,9 @@ class ClientService
         try {
             $client = Client::query()->create([
                 'name' => $dto->getName(),
-                'last_name' => $dto->getLastName(),
-                'age' => $dto->getAge(),
+                //'last_name' => $dto->getLastName(),
+                //'age' => $dto->getAge(),
                 'email' => $dto->getEmail(),
-                //'password' => bcrypt($dto->getPassword()),
             ]);
         } catch (\Exception $e) {
             return $this->responseError($e);

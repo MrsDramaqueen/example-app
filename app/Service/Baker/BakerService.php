@@ -61,14 +61,20 @@ class BakerService
         try {
             $baker = Baker::query()->create([
                 'name' => $dto->getName(),
-                'last_name' => $dto->getLastName(),
-                'age' => $dto->getAge(),
+                //'last_name' => $dto->getLastName(),
+                //'age' => $dto->getAge(),
+                'email' => $dto->getEmail(),
                 ]
             );
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-        return $this->responseSuccess($baker);
+        $token = $baker->createToken('apiToken')->plainTextToken;
+        $result = [
+            'baker' => $baker,
+            'token' => $token,
+        ];
+        return $this->responseSuccess($result);
     }
 
     /**

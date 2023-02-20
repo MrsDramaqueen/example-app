@@ -57,8 +57,28 @@ class BakerStoreDTO
         $this->age = $age;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return BakerStoreDTO
+     */
+    public function setEmail(string $email): BakerStoreDTO
+    {
+        $this->email = $email;
+        return $this;
+    }
+
     private string $name;
     private string $lastName;
     private string $age;
+    private string $email;
 
 }

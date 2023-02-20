@@ -13,6 +13,9 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        /**
+         * TODO: rename column user to class
+         */
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
