@@ -198,7 +198,7 @@ class User extends Authenticatable
         return $this;
     }
 
-     public function userType(): MorphTo
+     public function userClassType(): MorphTo
      {
          return $this->morphTo();
      }

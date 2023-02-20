@@ -2,6 +2,7 @@
 
 namespace App\Service\Client;
 
+use App\Entity\DTO\Auth\RegisterUserDTO;
 use App\Entity\DTO\Client\ClientIndexDTO;
 use App\Entity\DTO\Client\ClientLoginDTO;
 use App\Entity\DTO\Client\ClientStoreDTO;
@@ -75,7 +76,7 @@ class ClientService
      * @param ClientStoreDTO $dto
      * @return JsonResponse
      */
-    public function signUpNewClient(ClientStoreDTO $dto): JsonResponse
+    public function signUpNewClient(RegisterUserDTO $dto): JsonResponse
     {
         try {
             $client = Client::query()->create([

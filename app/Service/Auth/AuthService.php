@@ -36,7 +36,10 @@ class AuthService
 
            switch ($user['user_type']) {
                case 'clients':
-                   $userClass = (new ClientController)->signUpNewClient($dto);
+                   /*$user = User::query()->find($user['user_id']);
+                   $userClassType = $user->userClassType()->getEmail();
+                   $userClass = (new ClientService)->signUpNewClient($userClassType);*/
+                   $userClass = (new ClientService)->signUpNewClient($dto);
                    break;
                case 'bakers':
                    $userClass = (new BakerService)->store($dto);

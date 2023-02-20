@@ -2,6 +2,7 @@
 
 namespace App\Service\Baker;
 
+use App\Entity\DTO\Auth\RegisterUserDTO;
 use App\Entity\DTO\Baker\BakerIndexDTO;
 use App\Entity\DTO\Baker\BakerStoreDTO;
 use App\Entity\DTO\Baker\BakerUpdateDTO;
@@ -32,7 +33,7 @@ class BakerService
      * @param BakerIndexDTO $dto
      * @return JsonResponse
      */
-    public function getByParameters(BakerIndexDTO $dto): JsonResponse
+    public function getByParameters(RegisterUserDTO $dto): JsonResponse
     {
         $parameters = [
             'name' => $dto->getName(),
