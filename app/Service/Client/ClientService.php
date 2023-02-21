@@ -9,6 +9,7 @@ use App\Entity\DTO\Client\ClientStoreDTO;
 use App\Entity\DTO\Client\ClientUpdateDTO;
 use App\Models\Client;
 use App\Service\Traits\Responses;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,28 +73,17 @@ class ClientService
         return $this->responseSuccess($client);
     }
 
+
     /**
-     * @param ClientStoreDTO $dto
-     * @return JsonResponse
+     * @param RegisterUserDTO $dto
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function signUpNewClient(RegisterUserDTO $dto): JsonResponse
+    public function store(RegisterUserDTO $dto)
     {
-        try {
-            $client = Client::query()->create([
-                'name' => $dto->getName(),
-                //'last_name' => $dto->getLastName(),
-                //'age' => $dto->getAge(),
-                'email' => $dto->getEmail(),
-            ]);
-        } catch (\Exception $e) {
-            return $this->responseError($e);
-        }
-        $token = $client->createToken('apiToken')->plainTextToken;
-        $result = [
-            'client' => $client,
-            'token' => $token,
-        ];
-        return $this->responseSuccess($result);
+        return Client::query()->create([
+            'name' => $dto->getName(),
+            'email' => $dto->getEmail(),
+        ]);
     }
 
     /**

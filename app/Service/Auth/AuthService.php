@@ -23,33 +23,35 @@ class AuthService
      * @param RegisterUserDTO $dto
      * @return JsonResponse
      */
-    public function registerNewUser(RegisterUserDTO $dto): JsonResponse
+    public function register(RegisterUserDTO $dto): JsonResponse
     {
         try {
+            switch ($dto->getClassType()) {
+                case 'clients':
+                    $userClass = (new ClientService)->store($dto);
+                    break;
+                case 'bakers':
+                    $userClass = (new BakerService)->store($dto);
+                    break;
+            }
+
             $user = User::query()->create([
                 'name' => $dto->getName(),
                 'email' => $dto->getEmail(),
                 'password' => bcrypt($dto->getPassword()),
-                'user_id' => $dto->getUserId(),
-                'user_type' => $dto->getUserType(),
+                'class_type' => $dto->getClassType(),
+                'class_id' => $userClass->getId()
             ]);
-
-           switch ($user['user_type']) {
-               case 'clients':
-                   /*$user = User::query()->find($user['user_id']);
-                   $userClassType = $user->userClassType()->getEmail();
-                   $userClass = (new ClientService)->signUpNewClient($userClassType);*/
-                   $userClass = (new ClientService)->signUpNewClient($dto);
-                   break;
-               case 'bakers':
-                   $userClass = (new BakerService)->store($dto);
-                   break;
-           }
 
         } catch (\Exception $e) {
             return $this->responseError($e);
         }
-        return $this->responseSuccess($userClass);
+
+        $data = [
+            'token' => $user->createToken('apiToken')->plainTextToken
+        ];
+
+        return $this->responseSuccess($data);
     }
 
     /**

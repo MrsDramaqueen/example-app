@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Route::resource('bakerBun', BakerBunController::class);
     Route::get('/bakerBun/', [BakerBunController::class, 'listALLBakerBuns']);
     Route::post('/bakerBun', [BakerBunController::class, 'store']);
+    Route::post('/bun/', [BunController::class, 'store']);
 });
 
 Route::group(['prefix' => 'auth'], function () {

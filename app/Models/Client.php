@@ -19,9 +19,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  */
 
-class Client extends Authenticatable
+class Client extends Model
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -42,10 +42,12 @@ class Client extends Authenticatable
 
     /**
      * @param int $id
+     * @return Client
      */
-    public function setId(int $id): void
+    public function setId(int $id): Client
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -58,10 +60,12 @@ class Client extends Authenticatable
 
     /**
      * @param string $name
+     * @return Client
      */
-    public function setName(string $name): void
+    public function setName(string $name): Client
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -74,10 +78,12 @@ class Client extends Authenticatable
 
     /**
      * @param string $last_name
+     * @return Client
      */
-    public function setLastName(string $last_name): void
+    public function setLastName(string $last_name): Client
     {
         $this->last_name = $last_name;
+        return $this;
     }
 
     /**
@@ -126,6 +132,6 @@ class Client extends Authenticatable
 
     public function users(): MorphOne
     {
-        return $this->morphOne(User::class, 'user');
+        return $this->morphOne(User::class, 'class');
     }
 }

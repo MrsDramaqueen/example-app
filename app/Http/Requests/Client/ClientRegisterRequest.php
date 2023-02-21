@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Entity\DTO\Auth\RegisterUserDTO;
 use App\Entity\DTO\Client\ClientStoreDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -36,8 +37,6 @@ class ClientRegisterRequest extends FormRequest
     {
         return (new ClientStoreDTO)
             ->setName($this->input('name'))
-            //->setLastName('name')
-            //->setAge(23)
             ->setEmail($this->input('email'));
     }
 }

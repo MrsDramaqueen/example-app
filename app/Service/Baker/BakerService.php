@@ -6,6 +6,7 @@ use App\Entity\DTO\Auth\RegisterUserDTO;
 use App\Entity\DTO\Baker\BakerIndexDTO;
 use App\Entity\DTO\Baker\BakerStoreDTO;
 use App\Entity\DTO\Baker\BakerUpdateDTO;
+use App\Http\Controllers\Bun\BunController;
 use App\Models\Baker;
 use App\Service\Traits\Responses;
 use Illuminate\Http\JsonResponse;
@@ -55,27 +56,15 @@ class BakerService
 
     /**
      * @param BakerStoreDTO $dto
-     * @return JsonResponse
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function store(BakerStoreDTO $dto): JsonResponse
+    public function store(BakerStoreDTO $dto)
     {
-        try {
-            $baker = Baker::query()->create([
+        return Baker::query()->create([
                 'name' => $dto->getName(),
-                //'last_name' => $dto->getLastName(),
-                //'age' => $dto->getAge(),
                 'email' => $dto->getEmail(),
-                ]
-            );
-        } catch (\Exception $e) {
-            return $this->responseError($e);
-        }
-        $token = $baker->createToken('apiToken')->plainTextToken;
-        $result = [
-            'baker' => $baker,
-            'token' => $token,
-        ];
-        return $this->responseSuccess($result);
+            ]
+        );
     }
 
     /**

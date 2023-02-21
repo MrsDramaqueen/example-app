@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
     public function register(AuthService $service, AuthRequest $request): JsonResponse
     {
-        return $service->registerNewUser($request->getRegisterDTO());
+        return $service->register($request->getRegisterDTO());
     }
 
     public function login(AuthService $service, LoginRequest $request): JsonResponse

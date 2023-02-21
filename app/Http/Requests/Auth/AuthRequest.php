@@ -4,6 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use App\Entity\DTO\Auth\RegisterUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class AuthRequest extends FormRequest
@@ -30,7 +31,7 @@ class AuthRequest extends FormRequest
             'name' => 'required|string|min:1|max:255',
             'email' => 'required|string|min:1|max:255|unique:users,email',
             'password' => 'required|string|confirmed',
-            //'user_id' => 'exists:bakers,id|',
+            //'class_id' => 'unique:users:class_id',
         ];
     }
 
@@ -40,7 +41,7 @@ class AuthRequest extends FormRequest
             ->setName($this->input('name'))
             ->setEmail($this->input('email'))
             ->setPassword($this->input('password'))
-            ->setUserId($this->input('user_id'))
-            ->setUserType($this->input('user_type'));
+            //->setClassId($this->input('class_id'))
+            ->setClassType($this->input('class_type'));
     }
 }

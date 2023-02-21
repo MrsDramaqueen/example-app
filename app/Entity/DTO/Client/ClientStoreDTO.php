@@ -76,6 +76,25 @@ class ClientStoreDTO
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return ClientStoreDTO
+     */
+    public function setId(string $id): ClientStoreDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    private string $id;
     private string $name;
     private string $lastName;
     private string $age;

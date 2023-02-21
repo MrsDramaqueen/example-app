@@ -16,8 +16,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $age
  * @property string $email
  * @property string $password
- * @property int $userId
- * @property int $userType
+ * @property int $classId
+ * @property int $classType
+ * @property-read Client|Baker $userClass
  */
 class User extends Authenticatable
 {
@@ -32,8 +33,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_id',
-        'user_type',
+        'class_id',
+        'class_type',
     ];
 
     /**
@@ -165,40 +166,51 @@ class User extends Authenticatable
     /**
      * @return int
      */
-    public function getUserId(): int
+    public function getClassId(): int
     {
-        return $this->userId;
+        return $this->classId;
     }
 
     /**
-     * @param int $userId
+     * @param int $classId
      * @return User
      */
-    public function setUserId(int $userId): User
+    public function setClassId(int $classId): User
     {
-        $this->userId = $userId;
+        $this->classId = $classId;
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getUserType(): int
+    public function getClassType(): int
     {
-        return $this->userType;
+        return $this->classType;
     }
 
     /**
-     * @param int $userType
+     * @param int $classType
      * @return User
      */
-    public function setUserType(int $userType): User
+    public function setClassType(int $classType): User
     {
-        $this->userType = $userType;
+        $this->classType = $classType;
         return $this;
     }
 
-     public function userClassType(): MorphTo
+    /**
+     * @return Baker|Client
+     */
+    public function getUserClass()
+    {
+        return $this->userClass;
+    }
+
+    /**
+     * @return MorphTo
+     */
+     public function UserClass(): MorphTo
      {
          return $this->morphTo();
      }

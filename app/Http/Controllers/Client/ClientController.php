@@ -7,6 +7,7 @@ use App\Http\Requests\Client\ClientIndexRequest;
 use App\Http\Requests\Client\ClientLoginRequest;
 use App\Http\Requests\Client\ClientRegisterRequest;
 use App\Http\Requests\Client\ClientUpdateRequest;
+use App\Models\Client;
 use App\Models\User;
 use App\Service\Client\ClientService;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +16,8 @@ class ClientController extends Controller
 {
     public function index(ClientService $service, ClientIndexRequest $request): JsonResponse
     {
+        $client = Client::query()->find(12);
+        dd($client->users);
         if (empty($request->all())) {
             $result = $service->index();
         } else {
@@ -30,7 +33,7 @@ class ClientController extends Controller
 
     public function signUpNewClient(ClientService $service, ClientRegisterRequest $request): JsonResponse
     {
-        return $service->signUpNewClient($request->getRegisterDTO());
+        return $service->store($request->getRegisterDTO());
     }
 
     public function loginClient(ClientService $service, ClientLoginRequest $request): JsonResponse

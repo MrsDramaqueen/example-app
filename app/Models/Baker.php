@@ -18,7 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Baker extends Model
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -101,7 +101,7 @@ class Baker extends Model
 
     public function users(): MorphOne
     {
-        return $this->morphOne(User::class, 'user');
+        return $this->morphOne(User::class, 'class');
     }
 
     /**

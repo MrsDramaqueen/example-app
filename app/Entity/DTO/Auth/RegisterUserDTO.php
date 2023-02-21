@@ -64,42 +64,23 @@ class RegisterUserDTO extends BakerStoreDTO
     /**
      * @return string
      */
-    public function getUserId(): string
+    public function getClassType(): string
     {
-        return $this->userId;
+        return $this->classType;
     }
 
     /**
-     * @param string $userId
+     * @param string $classType
      * @return RegisterUserDTO
      */
-    public function setUserId(string $userId): RegisterUserDTO
+    public function setClassType(string $classType): RegisterUserDTO
     {
-        $this->userId = $userId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserType(): string
-    {
-        return $this->userType;
-    }
-
-    /**
-     * @param string $userType
-     * @return RegisterUserDTO
-     */
-    public function setUserType(string $userType): RegisterUserDTO
-    {
-        $this->userType = $userType;
+        $this->classType = $classType;
         return $this;
     }
 
     private string $name;
     private string $email;
     private string $password;
-    private string $userId;
-    private string $userType;
+    private string $classType;
 }
